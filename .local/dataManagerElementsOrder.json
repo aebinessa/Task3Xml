@@ -23,6 +23,10 @@
         "TransactionID&StateMachine_1",
         "dt_TransactionData&StateMachine_1",
         "ConsecutiveSystemExceptions&StateMachine_1",
+        "RestrictedAccounts_dt&StateMachine_1",
+        "DormantAccounts_dt&StateMachine_1",
+        "InActiveAccounts_dt&StateMachine_1",
+        "ActiveAccounts_dt&StateMachine_1",
         "ShouldStop&Sequence_25"
       ],
       "ArgumentsSectionElementsOrder": [
@@ -50,6 +54,10 @@
         "Task3FolderMailMessages&Sequence_9"
       ],
       "ArgumentsSectionElementsOrder": [
+        "RestrictedAccounts_dt",
+        "DormantAccounts_dt",
+        "InActiveAccounts_dt",
+        "ActiveAccounts_dt",
         "in_Config"
       ],
       "ConstantsSectionElementsOrder": null,
@@ -76,9 +84,43 @@
       "SortBy": 0,
       "VariablesSectionElementsOrder": [],
       "ArgumentsSectionElementsOrder": [
+        "RestrictedAccounts_dt",
+        "DormantAccounts_dt",
+        "InactiveAccounts_dt",
+        "ActiveAccounts_dt",
         "in_TransactionItem",
         "in_Config"
       ],
+      "ConstantsSectionElementsOrder": null,
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "Framework/SetTransactionStatus.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [
+        "QueueRetry&Sequence_17",
+        "ScreenshotPath&Sequence_17"
+      ],
+      "ArgumentsSectionElementsOrder": [
+        "in_BusinessException",
+        "in_TransactionField1",
+        "in_TransactionField2",
+        "in_TransactionID",
+        "in_SystemException",
+        "in_Config",
+        "in_TransactionItem",
+        "io_RetryNumber",
+        "io_TransactionNumber",
+        "io_ConsecutiveSystemExceptions"
+      ],
+      "ConstantsSectionElementsOrder": null,
+      "AddedNamespaces": null
+    },
+    {
+      "Path": "Framework/CloseAllApplications.xaml",
+      "SortBy": 0,
+      "VariablesSectionElementsOrder": [],
+      "ArgumentsSectionElementsOrder": [],
       "ConstantsSectionElementsOrder": null,
       "AddedNamespaces": null
     }

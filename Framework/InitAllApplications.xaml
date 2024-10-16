@@ -1,11 +1,15 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="Initialize_Applications" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="clr-namespace:XmlDataConversion;assembly=XmlDataConversion" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:si="clr-namespace:System.IO;assembly=mscorlib" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="ActiveAccounts_dt" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="InActiveAccounts_dt" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="DormantAccounts_dt" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="RestrictedAccounts_dt" Type="OutArgument(sd:DataTable)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1152,4568</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1152,7615.33333333333</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>Initialization_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="68">
@@ -104,10 +108,9 @@
       <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Open applications used in the process and do necessary initialization procedures (e.g., login)." DisplayName="Initialize All Applications" sap:VirtualizedContainerService.HintSize="1092.66666666667,6494" sap2010:WorkflowViewState.IdRef="Sequence_9">
+  <Sequence sap2010:Annotation.AnnotationText="Open applications used in the process and do necessary initialization procedures (e.g., login)." DisplayName="Initialize All Applications" sap:VirtualizedContainerService.HintSize="1092.66666666667,7550.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_9">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:String" Name="RecepientEmail" />
       <Variable x:TypeArguments="scg:List(snm:MailMessage)" Name="RetrievedEmails" />
@@ -380,24 +383,12 @@
                         </sap:WorkflowViewStateService.ViewState>
                         <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue Item" sap:VirtualizedContainerService.HintSize="368,25.3333333333333" sap2010:WorkflowViewState.IdRef="AddQueueItem_7" Priority="Normal" QueueType="TaskThreeQueue" Reference="[CurrentRow.Item(6).ToString]">
                           <ui:AddQueueItem.ItemInformation>
-                            <InArgument x:TypeArguments="x:String" x:Key="Customer Name">
-                              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow.Item(0).ToString" />
-                            </InArgument>
-                            <InArgument x:TypeArguments="x:String" x:Key="Civil ID">
-                              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow.Item(1).ToString" />
-                            </InArgument>
-                            <InArgument x:TypeArguments="x:String" x:Key="Account Number">
-                              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow.Item(6).ToString" />
-                            </InArgument>
-                            <InArgument x:TypeArguments="x:String" x:Key="Account Open Date">
-                              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow.Item(7).ToString" />
-                            </InArgument>
-                            <InArgument x:TypeArguments="x:String" x:Key="Account Close Date">
-                              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow.Item(8).ToString" />
-                            </InArgument>
-                            <InArgument x:TypeArguments="x:String" x:Key="Account Status">
-                              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow.Item(9).ToString" />
-                            </InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="Customer Name">[CurrentRow.Item(0).ToString]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="Civil ID">[CurrentRow.Item(1).ToString]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="Account Number">[CurrentRow.Item(6).ToString]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="Account Open Date">[CurrentRow.Item(7).ToString]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="Account Close Date">[CurrentRow.Item(8).ToString]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="Account Status">[CurrentRow.Item(9).ToString]</InArgument>
                           </ui:AddQueueItem.ItemInformation>
                         </ui:AddQueueItem>
                       </Sequence>
@@ -459,24 +450,12 @@
                         </sap:WorkflowViewStateService.ViewState>
                         <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue Item" sap:VirtualizedContainerService.HintSize="368,25.3333333333333" sap2010:WorkflowViewState.IdRef="AddQueueItem_8" Priority="Normal" QueueType="TaskThreeQueue" Reference="[CurrentRow.Item(10).ToString]">
                           <ui:AddQueueItem.ItemInformation>
-                            <InArgument x:TypeArguments="x:String" x:Key="Customer Name">
-                              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow.Item(0).ToString" />
-                            </InArgument>
-                            <InArgument x:TypeArguments="x:String" x:Key="Civil ID">
-                              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow.Item(1).ToString" />
-                            </InArgument>
-                            <InArgument x:TypeArguments="x:String" x:Key="Account Number">
-                              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow.Item(10).ToString" />
-                            </InArgument>
-                            <InArgument x:TypeArguments="x:String" x:Key="Account Open Date">
-                              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow.Item(11).ToString" />
-                            </InArgument>
-                            <InArgument x:TypeArguments="x:String" x:Key="Account Close Date">
-                              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow.Item(12).ToString" />
-                            </InArgument>
-                            <InArgument x:TypeArguments="x:String" x:Key="Account Status">
-                              <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="CurrentRow.Item(13).ToString" />
-                            </InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="Customer Name">[CurrentRow.Item(0).ToString]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="Civil ID">[CurrentRow.Item(1).ToString]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="Account Number">[CurrentRow.Item(10).ToString]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="Account Open Date">[CurrentRow.Item(11).ToString]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="Account Close Date">[CurrentRow.Item(12).ToString]</InArgument>
+                            <InArgument x:TypeArguments="x:String" x:Key="Account Status">[CurrentRow.Item(13).ToString]</InArgument>
                           </ui:AddQueueItem.ItemInformation>
                         </ui:AddQueueItem>
                       </Sequence>
@@ -498,5 +477,20 @@
         </Sequence>
       </If.Else>
     </If>
+    <Sequence sap:VirtualizedContainerService.HintSize="1044.66666666667,1024.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_52">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+      <ui:BuildDataTable DataTable="[ActiveAccounts_dt]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="402,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_2" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Customer_x0020_Name&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Customer_x0020_Civil_x0020_ID&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Number&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Open_x0020_Date&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Close_x0020_Date&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Status&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+      <ui:WriteRange AddHeaders="True" DataTable="[ActiveAccounts_dt]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="402,116" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="Active Accounts" StartingCell="A2" WorkbookPath="D:\Task_3_xml_to_Excel\Output\End Of Day Report.xlsx" />
+      <ui:BuildDataTable DataTable="[InActiveAccounts_dt]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="402,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_3" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Customer_x0020_Name&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Customer_x0020_Civil_x0020_ID&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Number&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Open_x0020_Date&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Close_x0020_Date&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Status&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+      <ui:WriteRange AddHeaders="True" DataTable="[InActiveAccounts_dt]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="402,116" sap2010:WorkflowViewState.IdRef="WriteRange_2" SheetName="Inactive Accounts" StartingCell="A2" WorkbookPath="D:\Task_3_xml_to_Excel\Output\End Of Day Report.xlsx" />
+      <ui:BuildDataTable DataTable="[DormantAccounts_dt]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="402,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_4" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Customer_x0020_Name&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Customer_x0020_Civil_x0020_ID&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Number&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Open_x0020_Date&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Close_x0020_Date&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Status&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+      <ui:WriteRange AddHeaders="True" DataTable="[DormantAccounts_dt]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="402,116" sap2010:WorkflowViewState.IdRef="WriteRange_3" SheetName="Dormant Accounts" StartingCell="A2" WorkbookPath="D:\Task_3_xml_to_Excel\Output\End Of Day Report.xlsx" />
+      <ui:BuildDataTable DataTable="[RestrictedAccounts_dt]" DisplayName="Build Data Table" sap:VirtualizedContainerService.HintSize="402,60" sap2010:WorkflowViewState.IdRef="BuildDataTable_5" TableInfo="&lt;NewDataSet&gt;&#xA;  &lt;xs:schema id=&quot;NewDataSet&quot; xmlns=&quot;&quot; xmlns:xs=&quot;http://www.w3.org/2001/XMLSchema&quot; xmlns:msdata=&quot;urn:schemas-microsoft-com:xml-msdata&quot;&gt;&#xA;    &lt;xs:element name=&quot;NewDataSet&quot; msdata:IsDataSet=&quot;true&quot; msdata:MainDataTable=&quot;TableName&quot; msdata:UseCurrentLocale=&quot;true&quot;&gt;&#xA;      &lt;xs:complexType&gt;&#xA;        &lt;xs:choice minOccurs=&quot;0&quot; maxOccurs=&quot;unbounded&quot;&gt;&#xA;          &lt;xs:element name=&quot;TableName&quot;&gt;&#xA;            &lt;xs:complexType&gt;&#xA;              &lt;xs:sequence&gt;&#xA;                &lt;xs:element name=&quot;Customer_x0020_Name&quot; msdata:Caption=&quot;&quot; minOccurs=&quot;0&quot;&gt;&#xA;                  &lt;xs:simpleType&gt;&#xA;                    &lt;xs:restriction base=&quot;xs:string&quot;&gt;&#xA;                      &lt;xs:maxLength value=&quot;100&quot; /&gt;&#xA;                    &lt;/xs:restriction&gt;&#xA;                  &lt;/xs:simpleType&gt;&#xA;                &lt;/xs:element&gt;&#xA;                &lt;xs:element name=&quot;Customer_x0020_Civil_x0020_ID&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Number&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Open_x0020_Date&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Close_x0020_Date&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;                &lt;xs:element name=&quot;Account_x0020_Status&quot; msdata:Caption=&quot;&quot; type=&quot;xs:string&quot; minOccurs=&quot;0&quot; /&gt;&#xA;              &lt;/xs:sequence&gt;&#xA;            &lt;/xs:complexType&gt;&#xA;          &lt;/xs:element&gt;&#xA;        &lt;/xs:choice&gt;&#xA;      &lt;/xs:complexType&gt;&#xA;    &lt;/xs:element&gt;&#xA;  &lt;/xs:schema&gt;&#xA;&lt;/NewDataSet&gt;" />
+      <ui:WriteRange AddHeaders="True" DataTable="[RestrictedAccounts_dt]" DisplayName="Write Range Workbook" sap:VirtualizedContainerService.HintSize="402,116" sap2010:WorkflowViewState.IdRef="WriteRange_4" SheetName="Restricted Accounts" StartingCell="A2" WorkbookPath="D:\Task_3_xml_to_Excel\Output\End Of Day Report.xlsx" />
+    </Sequence>
   </Sequence>
 </Activity>
